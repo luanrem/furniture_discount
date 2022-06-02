@@ -53,7 +53,7 @@ const Home: NextPage = () => {
                   //   setInputInitialMoney(event.target.value)
                   // }
                 />
-                <InputRightAddon boxSize="mg" children="%" />
+                {/* <InputRightAddon boxSize="mg" children="%" /> */}
               </InputGroup>
             </FormControl>
             <FormControl>
