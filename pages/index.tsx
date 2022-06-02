@@ -1,14 +1,11 @@
 import type { NextPage } from "next";
 import {
   Box,
-  Center,
   Flex,
   FormControl,
   FormLabel,
   Input,
   InputGroup,
-  InputLeftAddon,
-  InputRightAddon,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -16,9 +13,7 @@ import {
   NumberInputStepper,
   Stack,
   Switch,
-  Textarea,
 } from "@chakra-ui/react";
-import { useState } from "react";
 
 const Home: NextPage = () => {
   return (
