@@ -21,11 +21,6 @@ import {
 import { useState } from "react";
 
 const Home: NextPage = () => {
-  const format = (val: string) => `R$` + val;
-  const parse = (val: string) => val.replace(/^\$/, "");
-
-  const [value, setValue] = useState<Number>(1.53);
-
   return (
     <Flex flexDir="column" w="100vw" h="100vh" align="center" justify="center">
       <Box bg="gray.700" w="80%" p={4} color="white">
@@ -34,11 +29,7 @@ const Home: NextPage = () => {
             <FormControl>
               <FormLabel htmlFor="initialMoney">Valor de Entrada</FormLabel>
               <InputGroup>
-                <NumberInput
-                  onChange={(valueString) => setValue(parse(valueString))}
-                  value={format(String(value))}
-                  max={9000}
-                >
+                <NumberInput defaultValue={200} max={9000}>
                   <NumberInputField />
                   <NumberInputStepper>
                     <NumberIncrementStepper />
