@@ -1,11 +1,10 @@
 import type { NextPage } from "next";
 import {
   Box,
+  Button,
   Flex,
   FormControl,
   FormLabel,
-  Input,
-  InputGroup,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -15,7 +14,16 @@ import {
   Switch,
 } from "@chakra-ui/react";
 
+import Discount from "../components/Discount";
+import { useState } from "react";
+
 const Home: NextPage = () => {
+  const [freteButton, setFreteButton] = useState<boolean>(false);
+
+  const handleCheckFreteButton = (data: any) => {
+    console.log(data);
+    setFreteButton(!freteButton);
+  };
   return (
     <Flex flexDir="column" w="100vw" h="100vh" align="center" justify="center">
       <Box bg="gray.700" w="80%" p={4} color="white">
@@ -23,36 +31,6 @@ const Home: NextPage = () => {
           <Stack spacing="4">
             <FormControl>
               <FormLabel htmlFor="initialMoney">Valor de Entrada</FormLabel>
-              <InputGroup>
-                <NumberInput defaultValue={200} max={9000}>
-                  <NumberInputField />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </InputGroup>
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="discount">Desconto 1</FormLabel>
-              <InputGroup>
-                <Input
-                  focusBorderColor="pink.500"
-                  id="discount"
-                  name="discount"
-                  type="number"
-                  bg="gray.100"
-                  size="lg"
-                  value={500}
-                  // onChange={(event) =>
-                  //   setInputInitialMoney(event.target.value)
-                  // }
-                />
-                {/* <InputRightAddon boxSize="mg" children="%" /> */}
-              </InputGroup>
-            </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="discount">Desconto 1</FormLabel>
               <NumberInput defaultValue={15} max={30} clampValueOnBlur={false}>
                 <NumberInputField />
                 <NumberInputStepper>
@@ -61,6 +39,11 @@ const Home: NextPage = () => {
                 </NumberInputStepper>
               </NumberInput>
             </FormControl>
+            <Discount />
+            <Button colorScheme="gray.900" variant="outline">
+              Adicionar Desconto
+            </Button>
+
             <Flex
               flexDir="row"
               alignItems="center"
@@ -69,8 +52,15 @@ const Home: NextPage = () => {
               <Stack direction="column">
                 <FormControl>
                   <FormLabel htmlFor="discount">IPI</FormLabel>
-                  <NumberInput size="md" maxW={24} defaultValue={15} min={10}>
-                    <NumberInputField />
+                  <NumberInput
+                    size="md"
+                    maxW={24}
+                    defaultValue={15}
+                    min={10}
+                    color={freteButton ? "gray.100" : "gray.900"}
+                    borderColor={freteButton ? "gray.100" : "gray.900"}
+                  >
+                    <NumberInputField readOnly={freteButton ? true : false} />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
                       <NumberDecrementStepper />
@@ -79,8 +69,15 @@ const Home: NextPage = () => {
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="discount">Frete</FormLabel>
-                  <NumberInput size="md" maxW={24} defaultValue={15} min={10}>
-                    <NumberInputField />
+                  <NumberInput
+                    size="md"
+                    maxW={24}
+                    defaultValue={15}
+                    min={10}
+                    color={freteButton ? "gray.100" : "gray.900"}
+                    borderColor={freteButton ? "gray.100" : "gray.900"}
+                  >
+                    <NumberInputField readOnly={freteButton ? true : false} />
                     <NumberInputStepper>
                       <NumberIncrementStepper />
                       <NumberDecrementStepper />
@@ -91,7 +88,14 @@ const Home: NextPage = () => {
               <Flex>
                 <Stack direction="column" align="center">
                   <FormLabel htmlFor="discount">Usar Frete + IPI</FormLabel>
-                  <Switch colorScheme="teal" size="lg" />
+                  <Switch
+                    isChecked={freteButton}
+                    onChange={(data) => {
+                      handleCheckFreteButton(data);
+                    }}
+                    colorScheme="teal"
+                    size="lg"
+                  />
                 </Stack>
               </Flex>
             </Flex>
