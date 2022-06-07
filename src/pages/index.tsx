@@ -17,12 +17,50 @@ import {
 import Discount from "../components/Discount";
 import { useState } from "react";
 
+interface discountProps {
+  id: number;
+  number: number;
+  value: number;
+}
+
 const Home: NextPage = () => {
   const [freteButton, setFreteButton] = useState<boolean>(false);
+  const [discount, setDiscount] = useState<discountProps[]>([
+    {
+      id: 1,
+      number: 1,
+      value: 233,
+    },
+    {
+      id: 2,
+      number: 2,
+      value: 23,
+    },
+    {
+      id: 2,
+      number: 2,
+      value: 1113,
+    },
+  ]);
 
   const handleCheckFreteButton = (data: any) => {
     console.log(data);
     setFreteButton(!freteButton);
+  };
+
+  const addDiscount = () => {
+    let newDiscount: discountProps = {
+      id: 5,
+      number: 4,
+      value: 234,
+    };
+    console.log("discount", discount.push(newDiscount));
+    // setDiscount(setdiscount);
+    console.log("chegou");
+  };
+
+  const deleteDiscount = (data) => {
+    console.log("data");
   };
   return (
     <Flex flexDir="column" w="100vw" h="100vh" align="center" justify="center">
@@ -39,8 +77,14 @@ const Home: NextPage = () => {
                 </NumberInputStepper>
               </NumberInput>
             </FormControl>
-            <Discount />
-            <Button colorScheme="gray.900" variant="outline">
+            {discount.map((prop, key) => (
+              <Discount number={prop.number} value={prop.value} key={prop.id} />
+            ))}
+            <Button
+              colorScheme="gray.900"
+              variant="outline"
+              onClick={addDiscount}
+            >
               Adicionar Desconto
             </Button>
 
