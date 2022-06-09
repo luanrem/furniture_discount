@@ -27,15 +27,11 @@ const Home: NextPage = () => {
   const [discount, setDiscount] = useState<discountProps[]>([
     {
       id: 1,
-      value: 233,
+      value: 10,
     },
     {
       id: 2,
-      value: 23,
-    },
-    {
-      id: 5,
-      value: 1113,
+      value: 5,
     },
   ]);
 
@@ -55,7 +51,7 @@ const Home: NextPage = () => {
       return element;
     });
     const newDiscount: discountProps = {
-      id: discountFixed.slice(-1)[0].id + 1,
+      id: discount.length === 0 ? 1 : discountFixed.slice(-1)[0].id + 1,
       value: 10,
     };
     // console.log("newdiscount", newDiscount);
@@ -89,6 +85,8 @@ const Home: NextPage = () => {
     setDiscount(final);
     console.log("final", final);
   };
+
+  const increaseStepper = () => {};
   return (
     <Flex flexDir="column" w="100vw" h="100vh" align="center" justify="center">
       <Box bg="gray.700" w="80%" p={4} color="white">
