@@ -1,6 +1,4 @@
 import {
-  Button,
-  ButtonGroup,
   Flex,
   FormControl,
   FormLabel,
@@ -11,26 +9,32 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from "@chakra-ui/react";
+import { MouseEventHandler } from "react";
 import { TiDeleteOutline } from "react-icons/ti";
 
 interface discountProps {
-  number: number;
+  id: number;
   value: number;
+  delete: (data: number) => void;
 }
 
-export default function Discount({ number, value }: discountProps) {
+export default function Discount(prop: discountProps) {
+  const handleOnClick = () => {
+    console.log("handleOnClick");
+    prop.delete(prop.id);
+  };
   return (
     <>
       <Flex justifyContent="center" alignItems="center">
         <FormLabel margin="0" marginRight="2" flexShrink="0" htmlFor="discount">
-          Desc. {number}
+          Desc. {prop.id}
         </FormLabel>
         <FormControl>
           <NumberInput
             defaultValue={15}
             max={30}
             clampValueOnBlur={false}
-            value={value}
+            value={prop.value}
           >
             <NumberInputField />
             <NumberInputStepper>
@@ -40,7 +44,8 @@ export default function Discount({ number, value }: discountProps) {
           </NumberInput>
         </FormControl>
         <IconButton
-          id={String(number)}
+          onClick={handleOnClick}
+          id={String(prop.id)}
           variant="link"
           colorScheme="gray.800"
           aria-label="Call Sage"

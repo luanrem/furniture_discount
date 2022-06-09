@@ -15,30 +15,26 @@ import {
 } from "@chakra-ui/react";
 
 import Discount from "../components/Discount";
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
 
 interface discountProps {
   id: number;
-  number: number;
   value: number;
 }
 
 const Home: NextPage = () => {
-  const [freteButton, setFreteButton] = useState<boolean>(false);
+  const [freteButton, setFreteButton] = useState<boolean>(true);
   const [discount, setDiscount] = useState<discountProps[]>([
     {
       id: 1,
-      number: 1,
       value: 233,
     },
     {
       id: 2,
-      number: 2,
       value: 23,
     },
     {
-      id: 2,
-      number: 2,
+      id: 5,
       value: 1113,
     },
   ]);
@@ -49,18 +45,49 @@ const Home: NextPage = () => {
   };
 
   const addDiscount = () => {
-    let newDiscount: discountProps = {
-      id: 5,
-      number: 4,
-      value: 234,
+    let discountFixed = discount.map((element, index) => {
+      console.log("index, element", index, element);
+      // Check or fix the order of discounts
+      if (index !== element.id - 1) {
+        console.log("entrou");
+        element.id = index + 1;
+      }
+      return element;
+    });
+    const newDiscount: discountProps = {
+      id: discountFixed.slice(-1)[0].id + 1,
+      value: 10,
     };
-    console.log("discount", discount.push(newDiscount));
-    // setDiscount(setdiscount);
-    console.log("chegou");
+    // console.log("newdiscount", newDiscount);
+    // console.log("slice", discount.slice(-1));
+    setDiscount([...discount, newDiscount]);
   };
 
-  const deleteDiscount = (data) => {
-    console.log("data");
+  const deleteDiscount = (id: number) => {
+    console.log("data", id);
+    console.log(
+      "find",
+      discount.find((e) => e.id === id)
+    );
+    let final = discount.map((element, index) => {
+      console.log("index, element", index, element);
+      // Check or fix the order of discounts
+      if (index !== element.id - 1) {
+        console.log("entrou");
+        element.id = index + 1;
+      }
+      // Remove the element id
+      if (element.id === id) {
+        return;
+      }
+      return element;
+    });
+    final = final.filter((element) => {
+      return element !== undefined;
+    });
+
+    setDiscount(final);
+    console.log("final", final);
   };
   return (
     <Flex flexDir="column" w="100vw" h="100vh" align="center" justify="center">
@@ -78,7 +105,12 @@ const Home: NextPage = () => {
               </NumberInput>
             </FormControl>
             {discount.map((prop, key) => (
-              <Discount number={prop.number} value={prop.value} key={prop.id} />
+              <Discount
+                id={prop.id}
+                value={prop.value}
+                delete={deleteDiscount}
+                key={prop.id}
+              />
             ))}
             <Button
               colorScheme="gray.900"
