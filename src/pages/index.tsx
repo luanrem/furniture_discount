@@ -99,7 +99,7 @@ const Home: NextPage = () => {
           R$ 123,00
         </Text>
         <Divider margin="1rem" />
-        <Box bg="gray.700" w="80%" p={4} color="white">
+        <Box bg="gray.700" w="80%" p={4} color="white" maxW="35rem">
           <Flex as="form" flexDir="column">
             <Stack spacing="4">
               <FormControl>
