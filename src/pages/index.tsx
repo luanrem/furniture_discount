@@ -15,9 +15,10 @@ import {
   Switch,
   Text,
 } from "@chakra-ui/react";
+import CurrencyFormat from "react-currency-format";
 
 import Discount from "../components/Discount";
-import { useState } from "react";
+import { createRef, useEffect, useState } from "react";
 
 interface discountProps {
   id: number;
@@ -25,7 +26,7 @@ interface discountProps {
 }
 
 const Home: NextPage = () => {
-  const [freteButton, setFreteButton] = useState<boolean>(true);
+  const [freteIPIButton, setFreteIPIButton] = useState<boolean>(true);
   const [discount, setDiscount] = useState<discountProps[]>([
     {
       id: 1,
@@ -36,10 +37,42 @@ const Home: NextPage = () => {
       value: 5,
     },
   ]);
+  const [frete, setFrete] = useState(15);
+  const [ipi, setIpi] = useState(15);
+  const [entrada, setEntrada] = useState(10);
+  const [result, setResult] = useState(104230.4);
+
+  useEffect(() => {
+    console.log("-------------------");
+    console.log("discount", discount);
+    console.log("freteIPIButton", freteIPIButton);
+    console.log("entrada", entrada);
+    console.log("ipi", ipi);
+    console.log("frete", frete);
+    console.log("result", result);
+
+    if (freteIPIButton) {
+      let finalResult = entrada;
+      for (let i = 0; i < discount.length; i++) {
+        finalResult = finalResult - (finalResult * discount[i].value) / 100;
+        console.log("final", finalResult);
+      }
+      finalResult = finalResult + (finalResult * frete) / 100;
+      finalResult = finalResult + (finalResult * ipi) / 100;
+      setResult(finalResult);
+    } else {
+      let finalResult = entrada;
+      for (let i = 0; i < discount.length; i++) {
+        finalResult = finalResult - (finalResult * discount[i].value) / 100;
+        console.log("final", finalResult);
+      }
+      setResult(finalResult);
+    }
+  }, [discount, entrada, frete, freteIPIButton, ipi, result]);
 
   const handleCheckFreteButton = (data: any) => {
     console.log(data);
-    setFreteButton(!freteButton);
+    setFreteIPIButton(!freteIPIButton);
   };
 
   const addDiscount = () => {
@@ -83,7 +116,23 @@ const Home: NextPage = () => {
     setDiscount(final);
   };
 
-  const increaseStepper = () => {};
+  const increaseStepper = (id: number) => {
+    discount[id - 1].value += 1;
+    setDiscount([...discount]);
+  };
+  const decreaseStepper = (id: number) => {
+    discount[id - 1].value -= 1;
+    setDiscount([...discount]);
+  };
+  const entradaChange = (data: string) => {
+    setEntrada(Number(data));
+  };
+  const freteChange = (data: string) => {
+    setFrete(Number(data));
+  };
+  const IPIChange = (data: string) => {
+    setIpi(Number(data));
+  };
   return (
     <>
       <Flex
@@ -96,7 +145,14 @@ const Home: NextPage = () => {
         <Divider margin="1rem" />
         <Text color="white">Resultado: </Text>
         <Text fontSize="3xl" color="white">
-          R$ 123,00
+          <CurrencyFormat
+            value={result}
+            displayType={"text"}
+            decimalSeparator=","
+            prefix={"R$ "}
+            decimalScale={2}
+            fixedDecimalScale={true}
+          />
         </Text>
         <Divider margin="1rem" />
         <Box bg="gray.700" w="80%" p={4} color="white" maxW="35rem">
@@ -105,8 +161,9 @@ const Home: NextPage = () => {
               <FormControl>
                 <FormLabel htmlFor="initialMoney">Valor de Entrada</FormLabel>
                 <NumberInput
-                  defaultValue={15}
-                  max={30}
+                  onChange={(data) => entradaChange(data)}
+                  value={entrada}
+                  min={0}
                   clampValueOnBlur={false}
                 >
                   <NumberInputField />
@@ -118,6 +175,8 @@ const Home: NextPage = () => {
               </FormControl>
               {discount.map((prop, key) => (
                 <Discount
+                  increaseStepper={increaseStepper}
+                  decreaseStepper={decreaseStepper}
                   id={prop.id}
                   value={prop.value}
                   delete={deleteDiscount}
@@ -139,16 +198,18 @@ const Home: NextPage = () => {
               >
                 <Stack direction="column">
                   <FormControl>
-                    <FormLabel htmlFor="discount">IPI</FormLabel>
+                    <FormLabel htmlFor="IPI">IPI</FormLabel>
                     <NumberInput
+                      onChange={(data) => IPIChange(data)}
                       size="md"
                       maxW={24}
-                      defaultValue={15}
-                      min={10}
-                      color={freteButton ? "gray.100" : "gray.900"}
-                      borderColor={freteButton ? "gray.100" : "gray.900"}
+                      value={ipi}
+                      color={freteIPIButton ? "gray.100" : "gray.900"}
+                      borderColor={freteIPIButton ? "gray.100" : "gray.900"}
                     >
-                      <NumberInputField readOnly={freteButton ? true : false} />
+                      <NumberInputField
+                        readOnly={freteIPIButton ? true : false}
+                      />
                       <NumberInputStepper>
                         <NumberIncrementStepper />
                         <NumberDecrementStepper />
@@ -156,16 +217,18 @@ const Home: NextPage = () => {
                     </NumberInput>
                   </FormControl>
                   <FormControl>
-                    <FormLabel htmlFor="discount">Frete</FormLabel>
+                    <FormLabel htmlFor="frete">Frete</FormLabel>
                     <NumberInput
+                      onChange={(data) => freteChange(data)}
                       size="md"
                       maxW={24}
-                      defaultValue={15}
-                      min={10}
-                      color={freteButton ? "gray.100" : "gray.900"}
-                      borderColor={freteButton ? "gray.100" : "gray.900"}
+                      value={frete}
+                      color={freteIPIButton ? "gray.100" : "gray.900"}
+                      borderColor={freteIPIButton ? "gray.100" : "gray.900"}
                     >
-                      <NumberInputField readOnly={freteButton ? true : false} />
+                      <NumberInputField
+                        readOnly={freteIPIButton ? true : false}
+                      />
                       <NumberInputStepper>
                         <NumberIncrementStepper />
                         <NumberDecrementStepper />
@@ -177,7 +240,7 @@ const Home: NextPage = () => {
                   <Stack direction="column" align="center">
                     <FormLabel htmlFor="discount">Usar Frete + IPI</FormLabel>
                     <Switch
-                      isChecked={freteButton}
+                      isChecked={freteIPIButton}
                       onChange={(data) => {
                         handleCheckFreteButton(data);
                       }}

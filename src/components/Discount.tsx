@@ -16,6 +16,8 @@ interface discountProps {
   id: number;
   value: number;
   delete: (data: number) => void;
+  increaseStepper: (data: number) => void;
+  decreaseStepper: (data: number) => void;
 }
 
 export default function Discount(prop: discountProps) {
@@ -23,6 +25,16 @@ export default function Discount(prop: discountProps) {
     console.log("handleOnClick");
     prop.delete(prop.id);
   };
+
+  const increaseStepperInComponent = () => {
+    prop.increaseStepper(prop.id);
+    console.log("increase");
+  };
+  const decreaseStepperInComponent = () => {
+    console.log("decrease");
+    prop.decreaseStepper(prop.id);
+  };
+
   return (
     <>
       <Flex justifyContent="center" alignItems="center">
@@ -38,8 +50,8 @@ export default function Discount(prop: discountProps) {
           >
             <NumberInputField />
             <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
+              <NumberIncrementStepper onClick={increaseStepperInComponent} />
+              <NumberDecrementStepper onClick={decreaseStepperInComponent} />
             </NumberInputStepper>
           </NumberInput>
         </FormControl>
