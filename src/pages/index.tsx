@@ -208,7 +208,7 @@ const Home: NextPage = () => {
                       borderColor={freteIPIButton ? "gray.100" : "gray.900"}
                     >
                       <NumberInputField
-                        readOnly={freteIPIButton ? true : false}
+                        readOnly={freteIPIButton ? false : true}
                       />
                       <NumberInputStepper>
                         <NumberIncrementStepper />
@@ -227,7 +227,7 @@ const Home: NextPage = () => {
                       borderColor={freteIPIButton ? "gray.100" : "gray.900"}
                     >
                       <NumberInputField
-                        readOnly={freteIPIButton ? true : false}
+                        readOnly={freteIPIButton ? false : true}
                       />
                       <NumberInputStepper>
                         <NumberIncrementStepper />
