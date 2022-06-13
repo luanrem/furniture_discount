@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 
 import Discount from "../components/Discount";
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 
 interface discountProps {
   id: number;
@@ -67,25 +67,20 @@ const Home: NextPage = () => {
       "find",
       discount.find((e) => e.id === id)
     );
-    let final = discount.map((element, index) => {
-      console.log("index, element", index, element);
-      // Check or fix the order of discounts
+
+    //remove the element id
+    discount.splice(id - 1, 1);
+    console.log("discount", discount);
+
+    // Check or fix the order of discounts
+    let final: discountProps[] = discount.map((element, index) => {
       if (index !== element.id - 1) {
-        console.log("entrou");
         element.id = index + 1;
-      }
-      // Remove the element id
-      if (element.id === id) {
-        return;
       }
       return element;
     });
-    final = final.filter((element) => {
-      return element !== undefined;
-    });
 
     setDiscount(final);
-    console.log("final", final);
   };
 
   const increaseStepper = () => {};
