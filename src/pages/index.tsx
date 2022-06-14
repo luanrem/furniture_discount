@@ -30,16 +30,16 @@ const Home: NextPage = () => {
   const [discount, setDiscount] = useState<discountProps[]>([
     {
       id: 1,
-      value: 10,
+      value: 10.0,
     },
     {
       id: 2,
-      value: 5,
+      value: 5.0,
     },
   ]);
-  const [frete, setFrete] = useState(15);
-  const [ipi, setIpi] = useState(15);
-  const [entrada, setEntrada] = useState(10);
+  const [frete, setFrete] = useState(15.0);
+  const [ipi, setIpi] = useState(15.0);
+  const [entrada, setEntrada] = useState(10.0);
   const [result, setResult] = useState(104230.4);
 
   useEffect(() => {
@@ -133,6 +133,15 @@ const Home: NextPage = () => {
   const IPIChange = (data: string) => {
     setIpi(Number(data));
   };
+  const changeDiscount = (id: number, data: number) => {
+    console.log("change2", data);
+    discount[id - 1].value = data;
+    console.log("new discount", discount);
+    setDiscount([...discount]);
+  };
+
+  const formatPerCent = (val: number) => val + ` %`;
+  const formatReal = (val: number) => `R$ ` + val;
   return (
     <>
       <Flex
@@ -162,7 +171,7 @@ const Home: NextPage = () => {
                 <FormLabel htmlFor="initialMoney">Valor de Entrada</FormLabel>
                 <NumberInput
                   onChange={(data) => entradaChange(data)}
-                  value={entrada}
+                  value={formatReal(entrada)}
                   min={0}
                   clampValueOnBlur={false}
                 >
@@ -175,6 +184,7 @@ const Home: NextPage = () => {
               </FormControl>
               {discount.map((prop, key) => (
                 <Discount
+                  changeValue={(id, data) => changeDiscount(id, data)}
                   increaseStepper={increaseStepper}
                   decreaseStepper={decreaseStepper}
                   id={prop.id}
@@ -203,9 +213,11 @@ const Home: NextPage = () => {
                       onChange={(data) => IPIChange(data)}
                       size="md"
                       maxW={24}
-                      value={ipi}
+                      value={formatPerCent(ipi)}
                       color={freteIPIButton ? "gray.100" : "gray.900"}
                       borderColor={freteIPIButton ? "gray.100" : "gray.900"}
+                      precision={2}
+                      step={1}
                     >
                       <NumberInputField
                         readOnly={freteIPIButton ? false : true}
@@ -222,7 +234,7 @@ const Home: NextPage = () => {
                       onChange={(data) => freteChange(data)}
                       size="md"
                       maxW={24}
-                      value={frete}
+                      value={formatPerCent(frete)}
                       color={freteIPIButton ? "gray.100" : "gray.900"}
                       borderColor={freteIPIButton ? "gray.100" : "gray.900"}
                     >

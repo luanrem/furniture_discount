@@ -18,23 +18,24 @@ interface discountProps {
   delete: (data: number) => void;
   increaseStepper: (data: number) => void;
   decreaseStepper: (data: number) => void;
+  changeValue: (id: number, value: number) => void;
 }
 
 export default function Discount(prop: discountProps) {
   const handleOnClick = () => {
-    console.log("handleOnClick");
     prop.delete(prop.id);
   };
 
   const increaseStepperInComponent = () => {
     prop.increaseStepper(prop.id);
-    console.log("increase");
   };
   const decreaseStepperInComponent = () => {
-    console.log("decrease");
     prop.decreaseStepper(prop.id);
   };
-
+  const changeValueInComponent = (data: string) => {
+    prop.changeValue(prop.id, Number(data));
+  };
+  const formatPerCent = (val: number) => val + ` %`;
   return (
     <>
       <Flex justifyContent="center" alignItems="center">
@@ -43,10 +44,11 @@ export default function Discount(prop: discountProps) {
         </FormLabel>
         <FormControl>
           <NumberInput
-            defaultValue={15}
-            max={30}
-            clampValueOnBlur={false}
-            value={prop.value}
+            onChange={(data) => changeValueInComponent(data)}
+            value={formatPerCent(prop.value)}
+            precision={2}
+            step={0.2}
+            inputMode="decimal"
           >
             <NumberInputField />
             <NumberInputStepper>
