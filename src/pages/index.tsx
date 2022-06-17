@@ -203,8 +203,8 @@ const Home: NextPage = () => {
                       size="md"
                       maxW={28}
                       value={formatPerCent(ipi)}
-                      color={freteIPIButton ? "gray.100" : "gray.900"}
-                      borderColor={freteIPIButton ? "gray.100" : "gray.900"}
+                      color={freteIPIButton ? "white" : "gray.900"}
+                      borderColor={freteIPIButton ? "white" : "gray.900"}
                       precision={2}
                       step={0.5}
                     >
@@ -226,8 +226,8 @@ const Home: NextPage = () => {
                       value={formatPerCent(frete)}
                       precision={2}
                       step={0.5}
-                      color={freteIPIButton ? "gray.100" : "gray.900"}
-                      borderColor={freteIPIButton ? "gray.100" : "gray.900"}
+                      color={freteIPIButton ? "white" : "gray.900"}
+                      borderColor={freteIPIButton ? "white" : "gray.900"}
                     >
                       <NumberInputField
                         readOnly={freteIPIButton ? false : true}
