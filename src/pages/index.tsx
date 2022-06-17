@@ -22,7 +22,7 @@ import { createRef, useEffect, useState } from "react";
 
 interface discountProps {
   id: number;
-  value: number;
+  value: string;
 }
 
 const Home: NextPage = () => {
@@ -30,16 +30,16 @@ const Home: NextPage = () => {
   const [discount, setDiscount] = useState<discountProps[]>([
     {
       id: 1,
-      value: 10.0,
+      value: "10.00",
     },
     {
       id: 2,
-      value: 5.0,
+      value: "5.00",
     },
   ]);
-  const [frete, setFrete] = useState(15.0);
-  const [ipi, setIpi] = useState(15.0);
-  const [entrada, setEntrada] = useState(10.0);
+  const [frete, setFrete] = useState<string>("15.00");
+  const [ipi, setIpi] = useState<string>("15.00");
+  const [entrada, setEntrada] = useState<string>("10.00");
   const [result, setResult] = useState(104230.4);
 
   useEffect(() => {
@@ -51,19 +51,25 @@ const Home: NextPage = () => {
     console.log("frete", frete);
     console.log("result", result);
 
+    var entradaNumber = parseFloat(entrada);
+    var ipiNumber = parseFloat(ipi);
+    var freteNumber = parseFloat(frete);
+
     if (freteIPIButton) {
-      let finalResult = entrada;
+      let finalResult = entradaNumber;
       for (let i = 0; i < discount.length; i++) {
-        finalResult = finalResult - (finalResult * discount[i].value) / 100;
+        finalResult =
+          finalResult - (finalResult * parseFloat(discount[i].value)) / 100;
         console.log("final", finalResult);
       }
-      finalResult = finalResult + (finalResult * frete) / 100;
-      finalResult = finalResult + (finalResult * ipi) / 100;
+      finalResult = finalResult + (finalResult * freteNumber) / 100;
+      finalResult = finalResult + (finalResult * ipiNumber) / 100;
       setResult(finalResult);
     } else {
-      let finalResult = entrada;
+      let finalResult = entradaNumber;
       for (let i = 0; i < discount.length; i++) {
-        finalResult = finalResult - (finalResult * discount[i].value) / 100;
+        finalResult =
+          finalResult - (finalResult * parseFloat(discount[i].value)) / 100;
         console.log("final", finalResult);
       }
       setResult(finalResult);
@@ -87,7 +93,7 @@ const Home: NextPage = () => {
     });
     const newDiscount: discountProps = {
       id: discount.length === 0 ? 1 : discountFixed.slice(-1)[0].id + 1,
-      value: 10,
+      value: "10.00",
     };
     // console.log("newdiscount", newDiscount);
     // console.log("slice", discount.slice(-1));
@@ -116,32 +122,17 @@ const Home: NextPage = () => {
     setDiscount(final);
   };
 
-  const increaseStepper = (id: number) => {
-    discount[id - 1].value += 1;
-    setDiscount([...discount]);
-  };
-  const decreaseStepper = (id: number) => {
-    discount[id - 1].value -= 1;
-    setDiscount([...discount]);
-  };
-  const entradaChange = (data: string) => {
-    setEntrada(Number(data));
-  };
-  const freteChange = (data: string) => {
-    setFrete(Number(data));
-  };
-  const IPIChange = (data: string) => {
-    setIpi(Number(data));
-  };
-  const changeDiscount = (id: number, data: number) => {
+  const changeDiscount = (id: number, data: string) => {
     console.log("change2", data);
     discount[id - 1].value = data;
     console.log("new discount", discount);
     setDiscount([...discount]);
   };
 
-  const formatPerCent = (val: number) => val + ` %`;
-  const formatReal = (val: number) => `R$ ` + val;
+  const formatPerCent = (val: string) => val + ` %`;
+  const parsePerCent = (val: string) => val.replace(" %", "");
+  const formatReal = (val: string) => `$ ` + val;
+  const parseReal = (val: string) => val.replace(/\$ /g, "");
   return (
     <>
       <Flex
@@ -170,7 +161,7 @@ const Home: NextPage = () => {
               <FormControl>
                 <FormLabel htmlFor="initialMoney">Valor de Entrada</FormLabel>
                 <NumberInput
-                  onChange={(data) => entradaChange(data)}
+                  onChange={(data) => setEntrada(parseReal(data))}
                   value={formatReal(entrada)}
                   min={0}
                   clampValueOnBlur={false}
@@ -185,8 +176,6 @@ const Home: NextPage = () => {
               {discount.map((prop, key) => (
                 <Discount
                   changeValue={(id, data) => changeDiscount(id, data)}
-                  increaseStepper={increaseStepper}
-                  decreaseStepper={decreaseStepper}
                   id={prop.id}
                   value={prop.value}
                   delete={deleteDiscount}
@@ -210,14 +199,14 @@ const Home: NextPage = () => {
                   <FormControl>
                     <FormLabel htmlFor="IPI">IPI</FormLabel>
                     <NumberInput
-                      onChange={(data) => IPIChange(data)}
+                      onChange={(data) => setIpi(parsePerCent(data))}
                       size="md"
-                      maxW={24}
+                      maxW={28}
                       value={formatPerCent(ipi)}
                       color={freteIPIButton ? "gray.100" : "gray.900"}
                       borderColor={freteIPIButton ? "gray.100" : "gray.900"}
                       precision={2}
-                      step={1}
+                      step={0.5}
                     >
                       <NumberInputField
                         readOnly={freteIPIButton ? false : true}
@@ -231,10 +220,12 @@ const Home: NextPage = () => {
                   <FormControl>
                     <FormLabel htmlFor="frete">Frete</FormLabel>
                     <NumberInput
-                      onChange={(data) => freteChange(data)}
+                      onChange={(data) => setFrete(parsePerCent(data))}
                       size="md"
-                      maxW={24}
+                      maxW={28}
                       value={formatPerCent(frete)}
+                      precision={2}
+                      step={0.5}
                       color={freteIPIButton ? "gray.100" : "gray.900"}
                       borderColor={freteIPIButton ? "gray.100" : "gray.900"}
                     >

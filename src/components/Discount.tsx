@@ -14,11 +14,9 @@ import { TiDeleteOutline } from "react-icons/ti";
 
 interface discountProps {
   id: number;
-  value: number;
+  value: string;
   delete: (data: number) => void;
-  increaseStepper: (data: number) => void;
-  decreaseStepper: (data: number) => void;
-  changeValue: (id: number, value: number) => void;
+  changeValue: (id: number, value: string) => void;
 }
 
 export default function Discount(prop: discountProps) {
@@ -26,16 +24,11 @@ export default function Discount(prop: discountProps) {
     prop.delete(prop.id);
   };
 
-  const increaseStepperInComponent = () => {
-    prop.increaseStepper(prop.id);
-  };
-  const decreaseStepperInComponent = () => {
-    prop.decreaseStepper(prop.id);
-  };
   const changeValueInComponent = (data: string) => {
-    prop.changeValue(prop.id, Number(data));
+    prop.changeValue(prop.id, data);
   };
-  const formatPerCent = (val: number) => val + ` %`;
+  const formatPerCent = (val: string) => val + ` %`;
+  const parsePerCent = (val: string) => val.replace(" %", "");
   return (
     <>
       <Flex justifyContent="center" alignItems="center">
@@ -44,16 +37,16 @@ export default function Discount(prop: discountProps) {
         </FormLabel>
         <FormControl>
           <NumberInput
-            onChange={(data) => changeValueInComponent(data)}
+            onChange={(data) => changeValueInComponent(parsePerCent(data))}
             value={formatPerCent(prop.value)}
             precision={2}
-            step={0.2}
+            step={0.5}
             inputMode="decimal"
           >
             <NumberInputField />
             <NumberInputStepper>
-              <NumberIncrementStepper onClick={increaseStepperInComponent} />
-              <NumberDecrementStepper onClick={decreaseStepperInComponent} />
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
             </NumberInputStepper>
           </NumberInput>
         </FormControl>
