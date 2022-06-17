@@ -19,6 +19,7 @@ import CurrencyFormat from "react-currency-format";
 
 import Discount from "../components/Discount";
 import { createRef, useEffect, useState } from "react";
+import Link from "next/link";
 
 interface discountProps {
   id: number;
@@ -256,6 +257,12 @@ const Home: NextPage = () => {
             </Stack>
           </Flex>
         </Box>
+        <Text color="white">
+          Follow me:
+          <Link href="https://github.com/luanrem">
+            <a target="_blank"> github.com/luanrem</a>
+          </Link>
+        </Text>
       </Flex>
     </>
   );
