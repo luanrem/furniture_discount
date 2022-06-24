@@ -1,34 +1,93 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1 align="center">
+    <img alt="DevRadar" title="#delicinha" src=".github/furniture.png" width="250px" />
+</h1>
 
-## Getting Started
+<h4 align="center">
+  💸 Furniture Discount Calculator
+</h4>
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+<p align="center">
+<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/luanrem/furniture_discount">
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/luanrem/furniture_discount?color=%964b00&labelColor=000000">
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+  <img alt="License" src="https://img.shields.io/static/v1?label=license&message=MIT&color=7159c1&labelColor=000000">
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/luanrem/furniture_discount">
+</p>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+<br>
 
-To learn more about Next.js, take a look at the following resources:
+<p align="center">
+  <img alt="Furniture_mobile" src=".github/furniture_mobile.gif" width="20%">
+</p>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## :rocket: Technologies
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This project was developed with the following technologies:
 
-## Deploy on Vercel
+- [Next.js](https://nextjs.org)
+- [React](https://reactjs.org)
+- [Chakra ui](https://chakra-ui.com)
+- [Vercel](https://vercel.com)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 💻 Project
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+My brother started selling furniture and needed a calculator that shows the amount the customer will pay with the added discounts and transport interest. It's a personal project that aimed to help and solve a real problem for someone in the family, so it was done with all the affection possible.
+
+
+
+## 🔖 Website / Mobile
+
+This project was designed based on [Mobile first design](https://medium.com/@Vincentxia77/what-is-mobile-first-design-why-its-important-how-to-make-it-7d3cf2e29d00) due to the nature of the application. It was created to be used in front of customers and to perform calculations in real time. So by mobile first.
+
+You can find this project in this link: [Furniture Discount](https://desconto.luanmartins.com)
+
+Go there and test it... 🤘🤘🤘🤘
+
+## :electric_plug: Installation
+
+1. Clone the repo
+   ```sh
+    git clone https://github.com/luanrem/furniture_discount
+   ```
+2. Enter on the folder
+  ```sh
+    cd furniture_discount
+   ```
+3. Install YARN or NPM packages
+   ```sh
+   yarn
+   // or
+   npm install
+   ```
+4. Run the project
+   ```sh
+   yarn dev
+   // or
+   npm run dev
+   ```
+
+
+
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
+[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
+[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
+[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
+[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
+[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
+[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
+[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/othneildrew
+[product-screenshot]: images/screenshot.png
